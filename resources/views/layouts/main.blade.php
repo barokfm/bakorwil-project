@@ -4,14 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bakorwil | Halaman Peminjaman</title>
+    <title>Bakorwil | {{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+        <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    @yield('head')
 </head>
 
 <body class="bg-body-tertiary">
 
     @include('partials.navbar')
+
+    @yield('nav-head')
 
     @yield('main')
 
@@ -23,6 +29,12 @@
     </script>
     {{-- Link CDN Sweet Alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
+    <script src="{{ 'public/backend/plugins/jquery/jquery.min.js' }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ 'public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js' }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ 'public/backend/dist/js/adminlte.min.js' }}"></script>
 </body>
 
 </html>
