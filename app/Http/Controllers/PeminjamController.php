@@ -14,8 +14,10 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        $peminjam = Peminjam::all();
-        return view('formulir', compact('peminjam'));
+        // $peminjam = Peminjam::all();
+        return view('formulir', [
+            'title' => 'Form Peminjam'
+        ]);
     }
 
     /**
@@ -25,7 +27,7 @@ class PeminjamController extends Controller
      */
     public function create()
     {
-        return view('formulir');
+        // return view('formulir');
     }
 
     /**
@@ -65,7 +67,7 @@ class PeminjamController extends Controller
             'waktu'=> $request->waktu,
         ]);
 
-        return view('home')->with(['success'=>'Akhirnya bisa, Anjing!!!!!!!!!!'] );
+        return view('form_peralatan');
     }
 
     /**

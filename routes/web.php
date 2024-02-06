@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamController;
-use App\Models\Peminjam;
+use App\Http\Controllers\PeralatanController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -22,48 +21,43 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function(){
-    return view('home');
+    return view('home', [
+        'title' => 'Home'
+    ]);
 });
 
-Route::get('/formulir', function(){
-    return view('formulir');
-});
+Route::get('/formulir', [PeminjamController::class, 'index']);
+Route::get('/peralatan', [PeralatanController::class, 'index']);
 
 // Route::get('/form_peralatan', function(){
 //     return view('form_peralatan');
 // });
 
-Route::get('/surat', function(){
-    return view('surat');
-});
-Route::get('/admin', function(){
-    return view('admin/admin');
-});
+// Route::get('/surat', function(){
+//     return view('surat');
+// });
+// Route::get('/admin', function(){
+//     return view('admin/admin');
+// });
 
-Route::get('/dataadmin', function(){
-    return view('admin/dataadmin');
-});
+// Route::get('/dataadmin', function(){
+//     return view('admin/dataadmin');
+// });
 
-Route::get('/datakepala', function(){
-    return view('admin/datakepala');
-});
-Route::get('/kepala', function(){
-    return view('admin/kepala');
-});
-Route::get('/crud', function(){
-    return view('crud');
-});
-Route::get('/login', [LoginController::class, 'index']);
-
-Route::post('login', [LoginController::class, 'authenticate'])->name('login');
-
-Route::get('/rincian', function(){
-    return view('rincian');
-});
+// Route::get('/datakepala', function(){
+//     return view('admin/datakepala');
+// });
+// Route::get('/kepala', function(){
+//     return view('admin/kepala');
+// });
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->middleware('guest');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 Route::resource('form_peminjaman', PeminjamController::class);
-
 Route::post('form_peminjaman', [PeminjamController::class, 'store'])->name('form_peminjaman');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 
 // Route::get('/',[Sesicintroller::class, 'index']);
