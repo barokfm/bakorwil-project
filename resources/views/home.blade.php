@@ -13,17 +13,30 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Peminjaman</a>
+                            <a class="nav-link active" href="#peminjaman">Peminjaman</a>
                         </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/dashboard">Dashboard</a>
+                            </li>
+                        @endauth
                     </ul>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <a href="/login" class="btn btn-primary px-4 mx-3" type="submit">Login</a>
+
+                    @auth
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button  class="btn btn-danger px-4 mx-3" type="submit">Log out</button>
+                        </form>
+                    @else
+                        <a href="/login" class="btn btn-primary px-4 mx-3" type="submit">Login</a>
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -67,7 +80,7 @@
     <div class="container py-4">
         <h2>Sewa Gedung</h2>
     </div>
-    <section>
+    <section id="peminjaman">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
