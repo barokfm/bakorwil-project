@@ -15,6 +15,7 @@ class PeminjamController extends Controller
     public function index()
     {
         // $peminjam = Peminjam::all();
+        // return view('home');
         return view('formulir', [
             'title' => 'Form Peminjam'
         ]);
@@ -38,7 +39,8 @@ class PeminjamController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        //  print_r($request->all());
+        //  die();
         $this->validate($request, [
             'nama_peminjam'=>'required',
             'alamat'=>'required',
@@ -48,14 +50,18 @@ class PeminjamController extends Controller
             'foto_ktp'=>'required',
             'agenda'=>'required',
             'tgl_acara'=>'required',
-            'waktu'=>'required'
+            'waktu'=>'required',
+            'sound_system'=> 'required',
+            'kursi'=> 'required',
+            'area'=> 'required',
+            'ac'=> 'required'
         ]);
 
         // store image
         // $image = $request->file('image');
         // $image->storeAs('public/peminjam', $image->hashName());
 
-        Peminjam::create([
+        $peminjam = Peminjam::create([
             'nama_peminjam'=> $request->nama_peminjam,
             'alamat'=> $request->alamat,
             'email' => $request->email,
@@ -65,9 +71,21 @@ class PeminjamController extends Controller
             'agenda'=> $request->agenda,
             'tgl_acara'=> $request->tgl_acara,
             'waktu'=> $request->waktu,
+            'sound_system'=> $request->sound_system,
+            'kursi'=> $request->kursi,
+            'area'=> $request->area,
+            'ac'=> $request->ac
         ]);
 
-        return view('form_peralatan');
+        dd($peminjam);
+
+        return view('home',[
+            'title' => 'Home'
+        ]);
+
+        // return view('form_peralatan',[
+        //     'title' => 'Form Peralatan'
+        // ]);
     }
 
     /**
