@@ -24,6 +24,10 @@ class PeminjamSeeder extends Seeder
             'agenda'=> 'Seminar',
             'tgl_acara'=> date('Y-m-d'),
             'waktu'=> date('H:i:s'),
+            'sound_system' => 'ya',
+            'kursi' => '100',
+            'area' => 'tidak',
+            'ac' => '8',
         ]);
     }
 }

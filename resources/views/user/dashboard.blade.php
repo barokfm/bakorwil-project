@@ -13,10 +13,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">Peminjaman</a>
+                            <a class="nav-link active" href="/.#peminjaman">Peminjaman</a>
                         </li>
                     </ul>
                     <li class="nav-item dropdown" style="list-style: none;">
@@ -26,7 +26,7 @@
                                 Welcome, {{ auth()->user()->name }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Home</a></li>
+                                <li><a class="dropdown-item" href="/">Home</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
