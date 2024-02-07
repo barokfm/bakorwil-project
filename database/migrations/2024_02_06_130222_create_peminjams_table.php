@@ -24,9 +24,9 @@ class CreatePeminjamsTable extends Migration
             $table->string('agenda');
             $table->date('tgl_acara');
             $table->time('waktu');
-            $table->enum('sound_system',['ya','tidak'])->default('ya');
+            $table->enum('sound_system',['ya','tidak']);
             $table->integer('kursi')->default(0);
-            $table->enum('area',['ya','tidak'])->default('ya');
+            $table->enum('area',['ya','tidak']);
             $table->integer('ac')->default(0);
             $table->timestamps();
         });

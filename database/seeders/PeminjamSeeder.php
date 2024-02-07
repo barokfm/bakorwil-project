@@ -25,9 +25,9 @@ class PeminjamSeeder extends Seeder
             'tgl_acara'=> date('Y-m-d'),
             'waktu'=> date('H:i:s'),
             'sound_system' => 'ya',
-            'kursi' => '100',
+            'kursi' => 100,
             'area' => 'tidak',
-            'ac' => '8',
+            'ac' => 8,
         ]);
     }
 }

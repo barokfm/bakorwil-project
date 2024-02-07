@@ -72,12 +72,12 @@ class PeminjamController extends Controller
             'tgl_acara'=> $request->tgl_acara,
             'waktu'=> $request->waktu,
             'sound_system'=> $request->sound_system,
-            'kursi'=> $request->kursi,
-            'area'=> $request->area,
-            'ac'=> $request->ac
+            'kursi' => $request->kursi,
+            'area' => $request->area,
+            'ac' => $request->ac
         ]);
 
-        dd($peminjam);
+        // dd($request);
 
         return view('home',[
             'title' => 'Home'
