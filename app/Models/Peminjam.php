@@ -20,7 +20,11 @@ class Peminjam extends Model
         'foto_ktp',
         'agenda',
         'tgl_acara',
-        'waktu'
+        'waktu',
+        'sound_system',
+        'kursi',
+        'area',
+        'ac'
     ];
 
     protected $ignored = [
