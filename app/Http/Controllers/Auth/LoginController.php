@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -39,18 +38,37 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function index(){
+    public function index()
+    {
         return view('auth.login', [
             'title' => 'Login',
-            'active' => 'login',
         ]);
     }
 
-    public function authenticate(Request $request){
-        $request->validate([
-            'email' => 'required|email:dns',
-            'password' => 'require'
+    public function authenticate(Request $request)
+    {
+        $creadentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required'
         ]);
-            dd("Login Berhasil!");
+
+        if(Auth::attempt($creadentials)){
+
+            $request->session()->regenerate();
+
+            return redirect()->intended('/dashboard');
         }
+
+        return back()->with('loginError', 'Login Gagal!');
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->intended('/');
+    }
 }

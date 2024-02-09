@@ -14,8 +14,16 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        $peminjam = Peminjam::all();
-        return view('formulir', compact('peminjam'));
+        return view('formulir', [
+            'title' => 'Form Peminjam',
+        ]);
+    }
+
+    public function cetak($id)
+    {
+        $peminjam = Peminjam::find($id);
+
+        return view('user.cetak', compact('peminjam'));
     }
 
     /**
@@ -25,7 +33,7 @@ class PeminjamController extends Controller
      */
     public function create()
     {
-        return view('formulir');
+        // return view('formulir');
     }
 
     /**
@@ -36,36 +44,29 @@ class PeminjamController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $this->validate($request, [
+        // return $request->file('foto_ktp')->store('avatar');
+        // return $request->image;
+        $validatedData = $this->validate($request, [
             'nama_peminjam'=>'required',
             'alamat'=>'required',
             'email'=>'required',
             'no_hp'=>'required',
             'no_ktp'=>'required',
-            'foto_ktp'=>'required',
+            'foto_ktp'=>'image|file|max:1024',
             'agenda'=>'required',
             'tgl_acara'=>'required',
-            'waktu'=>'required'
+            'waktu'=>'required',
+            'sound_system'=> 'required',
+            'kursi'=> 'required',
+            'area'=> 'required',
+            'ac'=> 'required'
         ]);
 
         // store image
-        // $image = $request->file('image');
-        // $image->storeAs('public/peminjam', $image->hashName());
+        $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('peminjam');
 
-        Peminjam::create([
-            'nama_peminjam'=> $request->nama_peminjam,
-            'alamat'=> $request->alamat,
-            'email' => $request->email,
-            'no_hp'=> $request->no_hp,
-            'no_ktp'=> $request->no_ktp,
-            'foto_ktp'=>$request->foto_ktp,
-            'agenda'=> $request->agenda,
-            'tgl_acara'=> $request->tgl_acara,
-            'waktu'=> $request->waktu,
-        ]);
-
-        return view('home')->with(['success'=>'Akhirnya bisa, Anjing!!!!!!!!!!'] );
+        Peminjam::create($validatedData);
+        return redirect('/')->with('success', 'Data Berhasil disimpan!');
     }
 
     /**

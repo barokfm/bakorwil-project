@@ -1,31 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="backend/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="backend/dist/css/adminlte.min.css">
-</head>
+@section('head')
+<!-- Font Awesome -->
+<link rel="stylesheet" href="backend/plugins/fontawesome-free/css/all.min.css">
+<!-- icheck bootstrap -->
+<link rel="stylesheet" href="backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="backend/dist/css/adminlte.min.css">
+@endsection
 
-<body class="hold-transition login-page">
+@section('main')
+
+<div class="container w-50 p-4">
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <div type='button' class="btn-close" data-bs-dismiss='alert' aria-label="close" ></div>
+        </div>
+    @endif
+
+    @if (session()->has('loginError'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('loginError') }}
+            <div type='button' class="btn-close" data-bs-dismiss='alert' aria-label="close" ></div>
+        </div>
+    @endif
+</div>
+<div class="container d-flex justify-content-center align-aitems-center py-4">
+
     <div class="login-box">
-        <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="" class="h1"><b>Login </b></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Masuk sesui akun jabatan anda</p>
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="/login">
                     @csrf
                     <div class="input-group mb-3">
                         <input id="email" type="email" placeholder="Jangan lupa Email :-)"
@@ -73,37 +83,16 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
-                    <!-- <div class="social-auth-links text-center mt-2 mb-3">
-            <a href="#" class="btn btn-block btn-primary">
-            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-            </a>
-            <a href="#" class="btn btn-block btn-danger">
-            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-            </a> -->
-            {{-- </div> --}}
-            <!-- /.social-auth-links -->
-
-            <p class="mb-1">
-                @if (Route::has('password.request'))
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                @endif
-            </p>
+                <p class="mb-1">
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
+                </p>
+            </div>
         </div>
-        <!-- /.card-body -->
-        {{-- </div>
-    <!-- /.card -->
-    </div> --}}
-        <!-- /.login-box -->
+    </div>
+</div>
+@endsection
 
-        <!-- jQuery -->
-        <script src="{{ 'public/backend/plugins/jquery/jquery.min.js' }}"></script>
-        <!-- Bootstrap 4 -->
-        <script src="{{ 'public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js' }}"></script>
-        <!-- AdminLTE App -->
-        <script src="{{ 'public/backend/dist/js/adminlte.min.js' }}"></script>
-</body>
-
-</html>
