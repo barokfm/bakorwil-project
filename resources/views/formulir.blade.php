@@ -14,7 +14,7 @@
     </div>
 @endif
     <div class="container bg-body-tertiary py-2 rounded shadow mb-3">
-        <form action="{{ route('form_peminjaman') }}" method="POST">
+        <form action="{{ route('form_peminjaman') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="nama_peminjam" class="form-label">Nama Peminjam<small class="text-danger">*</small></label>
@@ -39,7 +39,12 @@
             <label for="photo" class="form-label">Foto KTP<small class="text-danger">*</small></label>
             <div class="container-fluid border rounded d-flex flex-column justify-content-center">
                 <div class="my-2">
-                    <input class="form-control" type="file" name="foto_ktp" required>
+                    <input class="form-control @error('foto_ktp') is-invalid @enderror" type="file" name="foto_ktp" required>
+                    @error('foto_ktp')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
             <div class="mb-3">

@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PeminjamController;
-use App\Http\Controllers\PeralatanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\PeminjamController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PeralatanController;
+use App\Models\Peminjam;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,12 @@ Route::resource('form_peminjaman', PeminjamController::class);
 Route::post('form_peminjaman', [PeminjamController::class, 'store'])->name('form_peminjaman');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/data', [PeminjamController::class, 'index'], [
+    'title' => 'Data Peminjam'
+]);
+
+Route::get('/data', [DataController::class, 'index']);
+Route::get('/show/{id}', [DataController::class, 'show']);
 
 
 // Route::get('/',[Sesicintroller::class, 'index']);
@@ -65,3 +73,5 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 // Route::get('/',[AdminController::class, 'index']);
 // Route::get('/',[Sesicintroller::class, 'logout']);
+
+Route::get('/cetak/{id}', [PeminjamController::class, 'cetak']);
