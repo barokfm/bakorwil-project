@@ -1,53 +1,25 @@
-@extends('layouts.main')
+@extends('user.layouts.utama')
 
-@section('nav-head')
-    <div class="container">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="img/logo.png" alt="logo"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/">Peminjaman</a>
-                        </li>
-                    </ul>
-                    <li class="nav-item dropdown" style="list-style: none;">
-                        @auth
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Welcome, {{ auth()->user()->name }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Home</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <form action="/logout" method="POST">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">Log out</button>
-                                </form>
-                            </ul>
-                        @else
-                            <a href="/login" class="btn btn-primary px-4 mx-3" type="submit">Login</a>
-                        @endauth
-                    </li>
+@section('main-page')
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">{{ $title }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
 
-                </div>
+            {{-- <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div>
-        </nav>
+            <button type="button"
+                class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+                <svg class="bi">
+                    <use xlink:href="#calendar3" />
+                </svg>
+                This week
+            </button> --}}
+        </div>
     </div>
-@endsection
-
-@section('main')
-    <div class="container">
-        <h1>Welcome, {{ auth()->user()->name }}</h1>
-    </div>
+    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+</main>
 @endsection
