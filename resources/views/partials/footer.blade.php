@@ -74,7 +74,7 @@
                     <div class="col-sm-5 col-lg-4 ml-lg-0 text-center text-md-end">
                         <!-- Facebook -->
                         <a class="btn btn-outline-light btn-floating" href="https://www.facebook.com/bakorwil4" class="text-white" role="button"><i
-                                class="fab fa-facebook-f"></i></a>
+                                class="fab fa-facebook"></i></a>
 
                         <!-- Twitter -->
                         <a class="btn btn-outline-light btn-floating" href="https://twitter.com/Bakorwil4pmk" class="text-white" role="button"><i
