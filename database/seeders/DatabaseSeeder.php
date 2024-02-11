@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         }
         $this->call([
             PeminjamSeeder::class,
+            // PeralatanSeeder::class
         ]);
-
         // \App\Models\Peminjam::factory(2)->create();
     }
 }

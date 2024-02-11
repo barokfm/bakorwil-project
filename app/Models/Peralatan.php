@@ -9,6 +9,8 @@ class Peralatan extends Model
 {
     use HasFactory;
 
-
+    public function peminjaman(){
+        $this->hasMany(Peminjaman::class, 'id_peralatan');
+    }
 
 }

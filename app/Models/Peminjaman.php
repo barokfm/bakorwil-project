@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Peminjaman extends Model
+{
+    use HasFactory;
+
+    public function peminjam(){
+        return $this->belongsTo(Peminjam::class, 'id_peminjam');
+    }
+
+    public function peralatan(){
+        return $this->belongsTo(Peralatan::class, 'id_peralatan');
+    }
+
+    public function transaksi(){
+        return $this->hasOne(Transaksi::class, 'id_peminjam');
+    }
+}

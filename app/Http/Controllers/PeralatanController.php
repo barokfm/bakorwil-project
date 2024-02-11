@@ -15,9 +15,12 @@ class PeralatanController extends Controller
      */
     public function index()
     {
-        return view('form_peralatan',[
+
+        $peralatans = Peralatan::get();
+
+        return view('peralatan',[
             'title' => 'Form Peralatan'
-        ]);
+        ], compact('peralatans'));
     }
 
     /**
@@ -38,9 +41,7 @@ class PeralatanController extends Controller
      */
     public function store(StorePeralatanRequest $request)
     {
-        $this->validate($request, [
-            // TODO
-        ]);
+        //
     }
 
     /**
