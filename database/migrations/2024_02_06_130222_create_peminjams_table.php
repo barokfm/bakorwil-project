@@ -15,6 +15,7 @@ class CreatePeminjamsTable extends Migration
     {
         Schema::create('peminjams', function (Blueprint $table) {
             $table->id('id_peminjam');
+            $table->foreignId('gedung_id');
             $table->string('nama_peminjam');
             $table->string('alamat');
             $table->string('email');
@@ -22,12 +23,12 @@ class CreatePeminjamsTable extends Migration
             $table->string('no_ktp');
             $table->string('foto_ktp')->nullable();
             $table->string('agenda');
-            $table->date('tgl_acara');
+            $table->date('tgl_awal');
+            $table->date('tgl_akhir');
             $table->time('waktu');
-            $table->enum('sound_system',['ya','tidak']);
-            $table->integer('kursi')->default(0);
-            $table->enum('area',['ya','tidak']);
-            $table->integer('ac')->default(0);
+            $table->integer('jam_operasional');
+            $table->boolean('status_sekertaris')->default(false);
+            $table->boolean('status_kepala')->default(false);
             $table->timestamps();
         });
     }

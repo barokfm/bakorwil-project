@@ -9,7 +9,7 @@
     <body>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex flex-column flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h4">{{ $title }}</h1>
+                <h1 class="h4">Data Peminjam</h1>
                 <div class="btn-toolbar mb-2 mb-md-0"></div>
             </div>
             <div class="container mt-5">
@@ -30,6 +30,8 @@
                                         <th>Agenda</th>
                                         <th>Tgl. Acara</th>
                                         <th>Waktu</th>
+                                        <th>Status Sekertaris</th>
+                                        <th>Status Kepala</th>
                                         <th>AKSI</th>
                                     </tr>
                                 </thead>
@@ -46,12 +48,46 @@
                                             <td>{{ $peminjam->agenda }}</td>
                                             <td>{{ $peminjam->tgl_acara }}</td>
                                             <td>{{ $peminjam->waktu }}</td>
+                                            <td class="">
+                                                @if ($peminjam->status_sekertaris === 1)
+                                                    <img src="/svg/check.svg" alt="validated">
+                                                @else
+                                                    <img src="/svg/cancel.svg" alt="invalidated">
+                                                @endif
+                                            </td>
+                                            <td class="">
+                                                @if ($peminjam->status_kepala === 1 )
+                                                    <img src="/svg/check.svg" alt="validated">
+                                                @else
+                                                    <img src="/svg/cancel.svg" alt="invalidated">
+                                                @endif
+                                            </td>
                                             <td class="text-center d-flex gap-2">
-                                                <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-
-                                                <a type="button" href="/cetak/{{ $peminjam->id_peminjam }}"
-                                                    class=" btnPrint btn btn-sm btn-warning">PRINT</a>
-                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                                @can('admin')
+                                                    <a href="/edit/{{ $peminjam->id_peminjam }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                    <a type="button" href="/cetak/{{ $peminjam->id_peminjam }}"
+                                                        class=" btnPrint btn btn-sm btn-warning">PRINT</a>
+                                                    <a href="/hapus/{{ $peminjam->id_peminjam }}" class="btn btn-sm btn-danger">HAPUS</a>
+                                                @endcan
+                                                @can('kepala')
+                                                    <form action="/kepala/{{ $peminjam->id_peminjam }}" method="POST">
+                                                        @csrf
+                                                        <input type="radio" name="status_kepala" class="d-none" value='true' checked>
+                                                        <button type="submit" class="btn btn-success">Approved</button>
+                                                    </form>
+                                                    <form action="/kepalaTolak/{{ $peminjam->id_peminjam }}" method="POST">
+                                                        @csrf
+                                                        <input type="radio" name="status_kepala" class="d-none" value='true' checked>
+                                                        <button type="submit" class="btn btn-danger">Disapproved</button>
+                                                    </form>
+                                                @endcan
+                                                @can('sekertaris')
+                                                <form action="/sekertaris/{{ $peminjam->id_peminjam }}" method="POST">
+                                                    @csrf
+                                                    <input type="radio" name="status_sekertaris" class="d-none" value='true' checked>
+                                                    <button type="submit" class="btn btn-success">Approved</button>
+                                                </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty
@@ -65,8 +101,8 @@
                         </div>
                     </div>
                 </div>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
             </div>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
             <a href="/" class="btn btn-warning mb-3">Back to Home</a>
         </main>
     </body>
@@ -78,31 +114,6 @@
         </script>
 
         <script>
-            // Formatting function for row details - modify as you need
-            // function format(d) {
-            //     // `d` is the original data object for the row
-            //     return (
-            //         '<dl>' +
-            //         '<dt>Sound System:</dt>' +
-            //         '<dd>' +
-            //         d.sound_system +
-            //         '</dd>' +
-            //         '<dt>Kursi:</dt>' +
-            //         '<dd>' +
-            //         d.kursi +
-            //         '</dd>' +
-            //         '<dt>Area:</dt>' +
-            //         '<dd>' +
-            //         d.area +
-            //         '</dd>' +
-            //         '<dt>AC: </dt>' +
-            //         '<dd>' +
-            //         d.ac +
-            //         '</dd>' +
-            //         '</dl>'
-            //     );
-            // }
-
             var table = new DataTable('#data_table', {
                 // ajax: '../ajax/data/objects.txt',
                 columnDefs: [{
@@ -119,12 +130,27 @@
                 paging: true,
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 300,
+                scrollY: 1000,
                 select: {
                     style: 'os',
                     selector: 'td:first-child'
-                }
+                },
             });
+
+            table.rows().every( function() {
+                this.child( 'Ini informasi tambahan tiap row' );
+            });
+
+            $('#data_table').on( 'click', 'tr', function() {
+                var child = table.row( this ).child;
+
+                if ( child.isShown() ){
+                    child.hide();
+                }
+                else {
+                    child.show();
+                }
+            } );
 
             // table.on('requestChild.dt', function(e, row) {
             //     row.child(format(row.data())).show();

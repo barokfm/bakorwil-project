@@ -19,16 +19,20 @@ class Peminjam extends Model
         'no_ktp',
         'foto_ktp',
         'agenda',
-        'tgl_acara',
+        'tgl_awal',
+        'tgl_akhir',
         'waktu',
-        'sound_system',
-        'kursi',
-        'area',
-        'ac'
+        'waktu_operasional',
+        'status_sekertaris',
+        'status_kepala'
     ];
 
     protected $ignored = [
         'id',
         'foto_ktp',
     ];
+
+    public function peminjaman(){
+        $this->hasMany(Peminjaman::class, 'id_peminjam');
+    }
 }

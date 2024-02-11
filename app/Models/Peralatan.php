@@ -9,6 +9,8 @@ class Peralatan extends Model
 {
     use HasFactory;
 
-
+    public function gedung(){
+        $this->belongsTo(Gedung::class);
+    }
 
 }
