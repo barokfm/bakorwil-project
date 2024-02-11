@@ -16,26 +16,19 @@ class PeralatanSeeder extends Seeder
     {
         $alats = [
             [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3500000,
-                'jumlah' => 1
-            ],
-            [
+                'gedung_id' => 1,
                 'nama' => 'Sound System',
                 'harga' => 500000,
-                'jumlah' => 1,
-            ],
-            [
-                'nama' => 'Area',
-                'harga' => 10000,
                 'jumlah' => 1
             ],
             [
+                'gedung_id' => 1,
                 'nama' => 'Kursi',
-                'harga' => 150,
+                'harga' => 1500,
                 'jumlah' => 150
             ],
             [
+                'gedung_id' => 1,
                 'nama' => 'AC',
                 'harga' => 350000,
                 'jumlah' => 8
