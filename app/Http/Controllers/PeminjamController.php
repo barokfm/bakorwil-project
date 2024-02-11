@@ -131,12 +131,12 @@ class PeminjamController extends Controller
 
         // cek apakah ada gambar dalam request
         if($request->hasFile('foto_ktp')){
-            // Hapus gambar lama
-            Storage::delete('peminjam/'.$peminjam->foto_ktp);
 
             // Upload gambar baru
-            $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('peminjam');
+            $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('/peminjam');
 
+            // Hapus gambar lama
+            Storage::delete($peminjam->foto_ktp);
 
             // update data dengan gambar yang baru
             $peminjam->update($validatedData);
@@ -191,8 +191,9 @@ class PeminjamController extends Controller
     public function destroy(string $id)
     {
         $peminjam = Peminjam::findOrFail($id);
+        // dd($peminjam);
 
-        Storage::delete('public/peminjam'.$peminjam->foto_peminjam);
+        Storage::delete($peminjam->foto_ktp);
 
         $peminjam->delete();
 

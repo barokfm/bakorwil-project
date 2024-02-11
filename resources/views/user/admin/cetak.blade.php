@@ -11,34 +11,34 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-1">
         <div class="container-fluid pt-3 d-flex justify-content-around align-items-center">
-            <img src="/img/kop.png" alt="kop" width="90">
+            <img src="/img/kop.png" alt="kop" width="100">
             <div class="container grid text-center">
-                <h5 class="col-8" style="line-height: 1">PEMERINTAH PROVINSI JAWA TIMUR</h5>
-                <h5 class="col-8" style="line-height: .5"><b>BADAN KOORDINASI WILAYAH PEMERINTAHAN DAN</b></h5>
-                <h5 class="col-8" style="line-height: 1"><b>PEMBANGUNAN PAMEKASAN</b></h5>
-                <div class="col-8" style="line-height: 0">
-                    <small class="col-8">Alamat: Jalan Slamet Riyadi No. 1 Pamekasan</small>
+                <h5 class="" style="line-height: 1">PEMERINTAH PROVINSI JAWA TIMUR</h5>
+                <h5 class="" style="line-height: .5"><b>BADAN KOORDINASI WILAYAH PEMERINTAHAN DAN</b></h5>
+                <h5 class="" style="line-height: 1"><b>PEMBANGUNAN PAMEKASAN</b></h5>
+                <div class="" style="line-height: 0">
+                    <small class="">Alamat: Jalan Slamet Riyadi No. 1 Pamekasan</small>
                     <br>
-                    <small class="col-8" style="line-height: 2">Email: bakorwil4@jatimprov.go.id</small>
+                    <small class="" style="line-height: 2">Email: bakorwil4@jatimprov.go.id</small>
                 </div>
-                <h5 class="col-8" style="line-height: .5"><b>PAMEKASAN</b></h5>
-                <div class="col-8 position-relative pb-3">
+                <h5 class="" style="line-height: .5"><b>PAMEKASAN</b></h5>
+                <div position-relative pb-3">
                     <small class=" col-7 position-absolute"><b>Kode Pos 69313</b></small>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
-            <hr class="border-top col-8 border-dark" style="height: 5px">
+            <hr class="border-top border-dark" style="height: 5px">
         </div>
-        <div class="col-8 text-center">
+        <div class="text-center">
             <h5><b><u>PERINCIAN PESEWAAN</u></b></h5>
         </div>
-        <div class="col-8">
-            <div class="container overflow-hidden">
-                <div class="row gx-5">
-                    <div class="col">
+        <div class="container-fluid pt-2">
+            <div class="container-fluid overflow-hidden">
+                <div class="container d-flex justify-content-between">
+                    <div>
                         <tr><b>Nama &emsp;&emsp;: </b></tr>
                         <td>{{ $peminjam->nama_peminjam }}</td><br>
                         <tr><b>Alamat &emsp;&ensp;: </b></tr>
@@ -48,11 +48,11 @@
                         <tr><b>No. KTP &emsp;: </b></tr>
                         <td>{{ $peminjam->no_ktp }}</td><br>
                     </div>
-                    <div class="col">
+                    <div>
                         <tr><b>Keperluan &emsp;&ensp;: </b></tr>
                         <td>{{ $peminjam->agenda }}</td> <br>
                         <tr><b>Tgl. Dipakai &ensp;&nbsp;: </b></tr>
-                        <td>{{ $peminjam->tgl_acara }}</td><br>
+                        <td>{{ $peminjam->tgl_awal }}</td><br>
                         <tr><b>Pukul &emsp;&emsp;&emsp;&ensp;: </b></tr>
                         <td>{{ $peminjam->waktu }}</td><br>
                         <tr><b>Email &emsp;&emsp;&emsp;&ensp;: </b></tr>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-8 pt-3">
+        <div class="pt-3">
             <table class="table border">
                 <thead>
                     <tr>
@@ -76,7 +76,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <th>Gedung Pertemua</th>
+                        <th>Gedung Pertemuan</th>
                         <th>5 Jam</th>
                         <th>Rp. 3.000.000</th>
                         <th>Rp. 3.000.000</th>

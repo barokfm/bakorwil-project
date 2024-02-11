@@ -100,8 +100,8 @@
                         </div>
                     </div>
                 </div>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
             </div>
-            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
             <a href="/" class="btn btn-warning mb-3">Back to Home</a>
         </main>
     </body>
@@ -113,31 +113,6 @@
         </script>
 
         <script>
-            // Formatting function for row details - modify as you need
-            // function format(d) {
-            //     // `d` is the original data object for the row
-            //     return (
-            //         '<dl>' +
-            //         '<dt>Sound System:</dt>' +
-            //         '<dd>' +
-            //         d.sound_system +
-            //         '</dd>' +
-            //         '<dt>Kursi:</dt>' +
-            //         '<dd>' +
-            //         d.kursi +
-            //         '</dd>' +
-            //         '<dt>Area:</dt>' +
-            //         '<dd>' +
-            //         d.area +
-            //         '</dd>' +
-            //         '<dt>AC: </dt>' +
-            //         '<dd>' +
-            //         d.ac +
-            //         '</dd>' +
-            //         '</dl>'
-            //     );
-            // }
-
             var table = new DataTable('#data_table', {
                 // ajax: '../ajax/data/objects.txt',
                 columnDefs: [{
@@ -154,12 +129,27 @@
                 paging: true,
                 scrollCollapse: true,
                 scrollX: true,
-                scrollY: 300,
+                scrollY: 1000,
                 select: {
                     style: 'os',
                     selector: 'td:first-child'
-                }
+                },
             });
+
+            table.rows().every( function() {
+                this.child( 'Ini informasi tambahan tiap row' );
+            });
+
+            $('#data_table').on( 'click', 'tr', function() {
+                var child = table.row( this ).child;
+
+                if ( child.isShown() ){
+                    child.hide();
+                }
+                else {
+                    child.show();
+                }
+            } );
 
             // table.on('requestChild.dt', function(e, row) {
             //     row.child(format(row.data())).show();

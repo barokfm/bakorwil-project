@@ -18,6 +18,7 @@ class PeminjamSeeder extends Seeder
         $peminjam = [
             [
                 'nama_peminjam' => 'Ahmad Hamdani',
+                'gedung_id' => 1,
                 'alamat' => 'Pragaan Sumenep',
                 'email' => 'hamdani@gmail.com',
                 'no_hp' => '087623562322',
@@ -31,6 +32,7 @@ class PeminjamSeeder extends Seeder
             ],
             [
                 'nama_peminjam' => 'Fiqo Hidayat',
+                'gedung_id' => 1,
                 'alamat' => 'Kadur Pemekasan',
                 'email' => 'fiqo@gmail.com',
                 'no_hp' => '082345576756',
@@ -44,6 +46,7 @@ class PeminjamSeeder extends Seeder
             ],
             [
                 'nama_peminjam' => 'Ulil Abshar',
+                'gedung_id' => 1,
                 'alamat' => 'Dungkek Pamekasan',
                 'email' => 'ulil@gmail.com',
                 'no_hp' => '08321332423',
@@ -57,6 +60,7 @@ class PeminjamSeeder extends Seeder
             ],
             [
                 'nama_peminjam' => 'Gus Ipul',
+                'gedung_id' => 1,
                 'alamat' => 'Karduluk Sumenep',
                 'email' => 'gus@gmail.com',
                 'no_hp' => '081762386678',
@@ -70,6 +74,7 @@ class PeminjamSeeder extends Seeder
             ],
             [
                 'nama_peminjam' => 'Ach. Tufaily',
+                'gedung_id' => 1,
                 'alamat' => 'Ganding Sumenep',
                 'email' => 'tufaili@gmail.com',
                 'no_hp' => '087233672819',
@@ -83,6 +88,7 @@ class PeminjamSeeder extends Seeder
             ],
             [
                 'nama_peminjam' => 'Khoironi',
+                'gedung_id' => 1,
                 'alamat' => 'Pakong Pamekasan',
                 'email' => 'roni@gmail.com',
                 'no_hp' => '08566273822',
