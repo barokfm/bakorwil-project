@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Peralatan;
 use App\Http\Requests\StorePeralatanRequest;
 use App\Http\Requests\UpdatePeralatanRequest;
+use App\Models\Gedung;
 
 class PeralatanController extends Controller
 {
@@ -15,8 +16,9 @@ class PeralatanController extends Controller
      */
     public function index()
     {
-
-        $peralatans = Peralatan::get();
+        // $gedung = Gedung::find($id);
+        $peralatans = Peralatan::all();
+        // $peralatans = $gedung->peralatan();
 
         return view('peralatan',[
             'title' => 'Form Peralatan'

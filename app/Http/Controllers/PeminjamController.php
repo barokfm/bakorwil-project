@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gedung;
 use App\Models\Peminjam;
 use App\Models\Peralatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -15,14 +18,14 @@ class PeminjamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $peralatans = Peralatan::get();
-        // dd($peralatans);
+        $gedung = Gedung::find($id);
 
         return view('formulir', [
             'title' => 'Form Peminjam',
-        ], compact('peralatans'));
+            'gedung' => $gedung
+        ]);
     }
 
     public function cetak($id)
@@ -52,6 +55,10 @@ class PeminjamController extends Controller
     {
         // return $request->file('foto_ktp')->store('avatar');
         // return $request->image;
+        // $gedung = Gedung::find($id);
+        // $peminjam = Peminjam::class;
+        // dd($gedung);
+
         $validatedData = $this->validate($request, [
             'nama_peminjam' => 'required',
             'alamat' => 'required',
@@ -60,19 +67,31 @@ class PeminjamController extends Controller
             'no_ktp' => 'required',
             'foto_ktp' => 'image|file|max:1024',
             'agenda' => 'required',
-            'tgl_acara' => 'required',
-            'waktu' => 'required',
-            'sound_system' => 'required',
-            'kursi' => 'required',
-            'area' => 'required',
-            'ac' => 'required'
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required',
+            'jam_operasional' => 'required'
         ]);
 
         // store image
-        $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('peminjam');
+        $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('/peminjam');
+        // $image = $request->file('foto_ktp');
+        // $image->store('/peminjam');
 
-        Peminjam::create($validatedData);
-        return redirect()->route('peralatan')->with('success', 'Data Berhasil disimpan!');
+
+        Peminjam::create([
+            'nama_peminjam' => $request->nama_peminjam,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'no_ktp' => $request->no_ktp,
+            'foto_ktp' => $validatedData['foto_ktp'],
+            'agenda' => $request->agenda,
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
+            'waktu' => $request->waktu,
+            'jam_operasional' => $request->jam_operasional,
+        ]);
+        return redirect()->route('peralatan')->with('success', 'Data Peminjam Berhasil disimpan!');
     }
 
     /**
@@ -117,14 +136,10 @@ class PeminjamController extends Controller
             'email' => 'required',
             'no_hp' => 'required',
             'no_ktp' => 'required',
-            'foto_ktp' => 'image|file|max:1024',
             'agenda' => 'required',
-            'tgl_acara' => 'required',
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required',
             'waktu' => 'required',
-            'sound_system' => 'required',
-            'kursi' => 'required',
-            'area' => 'required',
-            'ac' => 'required'
         ]);
 
         $peminjam = Peminjam::findOrFail($id);
@@ -139,7 +154,9 @@ class PeminjamController extends Controller
             Storage::delete($peminjam->foto_ktp);
 
             // update data dengan gambar yang baru
-            $peminjam->update($validatedData);
+            $peminjam->update($validatedData, [
+                'foto_ktp' => $validatedData['foto_ktp'],
+            ]);
         }else {
             $peminjam->update($validatedData);
         }
@@ -151,8 +168,10 @@ class PeminjamController extends Controller
     public function izinkan($id)
     {
         $peminjam = Peminjam::find($id);
+        // dd(auth()->user()->jabatan_id);
+        // $user = auth()->user();
 
-        if (auth()->user()->role === 'kepala') {
+        if (auth()->user()->jabatan_id == 2) {
             $peminjam->update([
                 'status_kepala' => true
             ]);
@@ -162,11 +181,14 @@ class PeminjamController extends Controller
             $peminjam->update([
                 'status_sekertaris' => true
             ]);
+
+            $peminjam->save();
         }
 
-        $peminjam->save();
+        smilify('success', 'Disetujui!');
+        return redirect()->route('data');
+        // return redirect()->route('data')->with(['success' => 'Peminjam Berhasil diapproved!']);
 
-        return redirect()->route('data')->with(['success' => 'Peminjam Berhasil diapproved!']);
     }
 
     public function tolak($id)

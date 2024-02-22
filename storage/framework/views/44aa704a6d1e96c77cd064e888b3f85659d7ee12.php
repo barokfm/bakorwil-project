@@ -12,8 +12,9 @@
         </div>
     <?php endif; ?>
     <div class="container bg-white py-2 rounded shadow mb-3">
-        <form action="<?php echo e(route('form_peminjaman')); ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo e(route('form_peminjam')); ?>" method="POST" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
+            
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="nama_peminjam" class="form-label">Nama Peminjam<small class="text-danger">*</small></label>
                 <input type="text" class="form-control" placeholder="John Doe" name="nama_peminjam" required>
@@ -77,12 +78,12 @@ unset($__errorArgs, $__bag); ?>
                 <small class="text-danger"><i>Tentukan tanggal berakhir acara anda</i></small>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
-                <label for="time" class="form-label">Waktu Acara<small class="text-danger">*</small></label>
-                <input type="time" name="waktu" class="from-control text-secondary border p-1 rounded mb-2" id="time" required>
+                <label for="waktu" class="form-label">Waktu Acara<small class="text-danger">*</small></label>
+                <input type="time" name="waktu" class="from-control text-secondary border p-1 rounded mb-2" id="waktu" required>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
-                <label for="time" class="form-label">Waktu Operasional<small class="text-danger">*</small></label>
-                <input type="time" name="jam_operasional" class="from-control text-secondary border p-1 rounded" id="time" required>
+                <label for="jam_operasional" class="form-label">Jam Operasional<small class="text-danger">*</small></label>
+                <input type="number" name="jam_operasional" class="from-control text-secondary border p-1 rounded" id="time" required>
                 <small class="text-danger"><i>Tentukan berapa jam operasional yang anda inginkan!</i></small>
             </div>
             

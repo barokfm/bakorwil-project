@@ -12,6 +12,7 @@ class Peminjam extends Model
     protected $primaryKey = 'id_peminjam';
 
     protected $fillable = [
+        'gedung_id',
         'nama_peminjam',
         'alamat',
         'email',
@@ -22,17 +23,25 @@ class Peminjam extends Model
         'tgl_awal',
         'tgl_akhir',
         'waktu',
-        'waktu_operasional',
-        'status_sekertaris',
-        'status_kepala'
+        'jam_operasional',
+        'status_kepala',
+        'status_sekertaris'
+    ];
+
+    protected $guarded = [
+        'id'
     ];
 
     protected $ignored = [
-        'id',
-        'foto_ktp',
+        'id'
     ];
 
-    public function peminjaman(){
-        $this->hasMany(Peminjaman::class, 'id_peminjam');
+    public function perlengkapan(){
+        return $this->hasMany(Perlengkapan::class, 'peminjam_id', 'id_peminjam');
+    }
+
+    public function rent()
+    {
+        $this->belongsTo(Rent::class);
     }
 }
