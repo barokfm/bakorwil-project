@@ -34,10 +34,12 @@
             color: #000000 !important;
         }
     </style>
+    @notifyCss
     @yield('head')
 </head>
 
 <body>
+    {{-- @include('notify::components.notify') --}}
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="calendar3" viewBox="0 0 16 16">
             <path
@@ -187,6 +189,9 @@
 
         </div>
     </div>
+
+    <x:notify-messages />
+    @notifyJs
 
     <script>
         //message with toastr

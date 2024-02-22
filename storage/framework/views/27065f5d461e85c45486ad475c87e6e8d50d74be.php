@@ -81,11 +81,12 @@
     <section id="peminjaman">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 g-4">
+                <?php $__currentLoopData = $gedungs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gedung): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col">
                     <div class="card shadow w-75">
                         <img src="img/bakorwil-4.jpg " class="card-img-top" alt="aula-bakorwil">
                         <div class="card-body">
-                            <h5 class="card-title">Aula Bakorwil</h5>
+                            <h5 class="card-title"><?php echo e($gedung->nama); ?></h5>
                             <p class="card-text">Diharapkan membaca beberapa rincian terkait gedung ini beserta list <i>price</i>.
                             </p>
                         </div>
@@ -96,9 +97,10 @@
                             data-bs-target="#staticBackdrop">
                             RINCIAN
                         </button>
-                        <a href="/formulir" class="btn btn-primary px-4">SEWA</a>
+                        <a href="/formulir/<?php echo e($gedung->id); ?>" class="btn btn-primary px-4">SEWA</a>
                     </section>
                 </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
     </section>
 

@@ -21,7 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'role',
+        'jabatan_id',
         'password',
         'avatar'
     ];
@@ -44,4 +44,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function jabatan(){
+        return $this->hasOne(Jabatan::class, 'id', 'jabatan_id');
+    }
 }

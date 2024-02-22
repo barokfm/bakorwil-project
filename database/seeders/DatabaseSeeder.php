@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gedung;
+use App\Models\Jabatan;
+use App\Models\Peminjam;
+use App\Models\Perlengkapan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,55 +18,40 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $gedung = [
+        $jabatan = [
             [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
+                'nama_jabatan' => 'Admin'
             ],
             [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
+                'nama_jabatan' => 'Kepala'
             ],
             [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
+                'nama_jabatan' => 'Sekretaris'
             ],
-            [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
-            ],
-            [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
-            ],
-            [
-                'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000
-            ]
         ];
-        foreach ($gedung as $ged) {
-            Gedung::create($ged);
+        foreach($jabatan as $j){
+            Jabatan::create($j);
         }
 
         $userData = [
             [
+                'jabatan_id' => 1,
                 'name' => 'Mas Admin',
                 'email' => 'admin@gmail.com',
-                'role' => 'admin',
                 'avatar' => 'avatar/RFZX3F4JBRIsdr5dVwbaw9lcuYJQirA4TSkIZ6Y8.png',
                 'password' => bcrypt('123456')
             ],
             [
+                'jabatan_id' => 2,
                 'name' => 'Mas kepala',
                 'email' => 'kepala@gmail.com',
-                'role' => 'kepala',
                 'avatar' => 'avatar/snG0Q84140gZ5qq3RhY4SSFH6rgqW9M2WdHQSxGN.png',
                 'password' => bcrypt('123456')
             ],
             [
+                'jabatan_id' => 3,
                 'name' => 'Mas sekertaris',
                 'email' => 'sekertaris@gmail.com',
-                'role' => 'sekretaris',
                 'avatar' => 'avatar/Ln42gl4TUr3TRuKznFSJNPGZNCxMQhh8H3F8S8BV.png',
                 'password' => bcrypt('123456')
 
@@ -73,9 +60,13 @@ class DatabaseSeeder extends Seeder
         foreach ($userData as $user) {
             User::create($user);
         }
+
         $this->call([
+            GedungSeeder::class,
             PeminjamSeeder::class,
-            PeralatanSeeder::class
+            PeralatanSeeder::class,
+            PerlengkapanSeeder::class,
+            RentSeeder::class
         ]);
         // \App\Models\Peminjam::factory(2)->create();
     }

@@ -17,8 +17,12 @@
         {{-- <div class="container bg-success-subtle p-4 rounded">
             <span>Masukkan 1 untuk kolom Gedung dan Area</span>
         </div> --}}
-        <form action="{{ route('form_peminjaman') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('form_peminjam') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
+                <label for="gedung" class="form-label">Gedung<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" name="gedung" required>
+            </div>
             @foreach ($peralatans as $peralatan)
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="nama_peminjam" class="form-label">{{ $peralatan->nama }}<small class="text-danger">*</small></label>

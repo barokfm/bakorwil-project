@@ -12,11 +12,13 @@
         </div>
     <?php endif; ?>
     <div class="container bg-white py-2 rounded shadow mb-3">
-        <div class="container bg-success-subtle p-4 rounded">
-            <span>Masukkan 1 untuk kolom Gedung dan Area</span>
-        </div>
-        <form action="<?php echo e(route('form_peminjaman')); ?>" method="POST" enctype="multipart/form-data">
+        
+        <form action="<?php echo e(route('form_peminjam')); ?>" method="POST" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
+            <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
+                <label for="gedung" class="form-label">Gedung<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" name="gedung" required>
+            </div>
             <?php $__currentLoopData = $peralatans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $peralatan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="nama_peminjam" class="form-label"><?php echo e($peralatan->nama); ?><small class="text-danger">*</small></label>
