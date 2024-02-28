@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="pt-3">
-            <table class="table border">
+            <table class="table border table-striped">
                 <thead>
                     <tr>
                         <th scope="col">NO.</th>
@@ -76,14 +76,82 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <th>Gedung Pertemuan</th>
-                        <th>5 Jam</th>
-                        <th>Rp. 3.000.000</th>
-                        <th>Rp. 3.000.000</th>
-                        <th>.......</th>
+                        <th class="fw-light"><?php echo e($gedung->nama); ?></th>
+                        <th class="fw-light"><?php echo e($peminjam->jam_operasional); ?> Jam</th>
+                        <th class="fw-light">Rp.<?php echo e(number_format(3000000, 0, ',', '.')); ?></th>
+                        <th class="fw-light"><?php
+                            $hargaGedung = $gedung->harga * $peminjam->jam_operasional;
+                        ?>
+                            Rp.<?php echo e(number_format($hargaGedung, 0, ',', '.')); ?></th>
+                        <th class="fw-light">.......</th>
+                    </tr>
+                    <?php for($i = 0; $i < count($peralatan); $i++): ?>
+                        <tr>
+                            <th scope="row"><?php echo e($i + 2); ?></th>
+                            <th class="fw-light"><?php echo e($peralatan[$i]->nama); ?></th>
+                            <th class="fw-light"><?php echo e($peralatan[$i]->jumlah); ?> buah</th>
+                            <th class="fw-light">Rp.<?php echo e(number_format($peralatan[$i]->harga, 0, ',', '.')); ?></th>
+                            <th class="fw-light"><?php $harga = $peralatan[$i]->harga * $peralatan[$i]->jumlah; ?>
+                                Rp.<?php echo e(number_format($harga, 0, ',', '.')); ?></th>
+                            <th class="fw-light">.......</th>
+                        </tr>
+                    <?php endfor; ?>
+                    <?php for($i = 0; $i < count($perlengkapan); $i++): ?>
+                        <tr>
+                            <th scope="row"><?php echo e($i + 4); ?></th>
+                            <th class="fw-light"><?php echo e($perlengkapan[$i]->nama); ?></th>
+                            <th class="fw-light"><?php echo e($perlengkapan[$i]->jumlah); ?> <?php if($i == 0): ?>
+                                    hari
+                                <?php else: ?>
+                                    m<sup>2</sup>
+                                <?php endif; ?>
+                            </th>
+                            <th class="fw-light">Rp.<?php echo e(number_format($perlengkapan[$i]->harga, 0, ',', '.')); ?></th>
+                            <th class="fw-light"><?php $harga = $perlengkapan[$i]->harga * $perlengkapan[$i]->jumlah; ?>
+                                Rp.<?php echo e(number_format($harga, 0, ',', '.')); ?></th>
+                            <th class="fw-light">.......</th>
+                        </tr>
+                    <?php endfor; ?>
+                    <tr>
+                        <th colspan="6"><br></th>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <th colspan="3" class="text-center"><i>JUMLAH BIAYA JASA SEWA DAN PERALATANNYA</i></th>
+                        <th>Rp.<?php echo e(number_format($total, 2, ',', '.')); ?></th>
                     </tr>
                 </tbody>
             </table>
+            <div class="container-fluid mt-5">
+                <h6>TERBILANG: Rp.<?php echo e(number_format($total, 2, ',', '.')); ?></h6>
+            </div>
+
+            <div class="container " style="margin-top: 70px">
+                <div class="row">
+                    <div class="col">
+                        <div class="col-lg text-center">
+                            <small>Mengetahui: <br></small>
+                            <span>BENDAHARA PENERIMAAN</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-lg text-center">
+                            <span><br></span>
+                            <span>Penyewa:</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 100px">
+                    <div class="col text-center">
+                        <span class="fw-bold"><u>SULAIMAN</u><br></span>
+                        <small>NIP. 19780807 201001 1 004</small>
+                    </div>
+                    <div class="col text-center">
+                        <?php echo e($peminjam->nama_peminjam); ?>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

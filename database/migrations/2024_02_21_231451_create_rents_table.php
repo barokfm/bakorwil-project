@@ -15,8 +15,8 @@ class CreateRentsTable extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gedung_id')->references('id_gedung')->on('gedungs');
-            $table->foreignId('peminjam_id')->references('id_peminjam')->on('peminjams');
+            $table->foreignId('gedung_id')->references('id')->on('gedungs');
+            $table->foreignId('peminjam_id')->references('id')->on('peminjams');
             $table->timestamps();
         });
     }

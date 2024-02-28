@@ -18,12 +18,12 @@ class GedungSeeder extends Seeder
         $gedung = [
             [
                 'nama' => 'Gedung Pertemuan',
-                'harga' => 3000000,
+                'harga' => 600000,
                 'image' => Hash::make('bakorwil.jpg')
             ],
             [
                 'nama' => 'Gedung Rapat',
-                'harga' => 2000000,
+                'harga' => 600000,
                 'image' => Hash::make('rapat.jpg')
             ]
         ];

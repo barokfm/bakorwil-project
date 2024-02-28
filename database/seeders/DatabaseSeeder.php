@@ -63,10 +63,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             GedungSeeder::class,
-            PeminjamSeeder::class,
-            PeralatanSeeder::class,
-            PerlengkapanSeeder::class,
-            RentSeeder::class
+            // PeminjamSeeder::class,
+            // PeralatanSeeder::class,
+            // PerlengkapanSeeder::class,
+            // RentSeeder::class
         ]);
         // \App\Models\Peminjam::factory(2)->create();
     }

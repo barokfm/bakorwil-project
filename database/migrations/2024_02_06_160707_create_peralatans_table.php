@@ -15,7 +15,7 @@ class CreatePeralatansTable extends Migration
     {
         Schema::create('peralatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gedung_id')->references('id_gedung')->on('gedungs');
+            $table->foreignId('peminjam_id')->references('id')->on('peminjams');
             $table->string('nama');
             $table->integer('jumlah');
             $table->integer('harga');

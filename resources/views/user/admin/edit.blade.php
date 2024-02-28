@@ -14,7 +14,7 @@
         </div>
     @endif
     <div class="container bg-white py-2 rounded shadow mb-3">
-        <form action="/edit/{{ $peminjam->id_peminjam }}" method="POST" enctype="multipart/form-data">
+        <form action="/edit/{{ $peminjam->id }}" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="gedung_id" class="form-label">Gedung<small class="text-danger">*</small></label>
