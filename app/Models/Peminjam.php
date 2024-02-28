@@ -9,7 +9,7 @@ class Peminjam extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_peminjam';
+    // protected $primaryKey = 'id_peminjam';
 
     protected $fillable = [
         'gedung_id',
@@ -32,16 +32,16 @@ class Peminjam extends Model
         'id'
     ];
 
-    protected $ignored = [
-        'id'
-    ];
+    public function peralatan(){
+        return $this->hasMany(Peralatan::class, 'peminjam_id', 'id');
+    }
 
     public function perlengkapan(){
-        return $this->hasMany(Perlengkapan::class, 'peminjam_id', 'id_peminjam');
+        return $this->hasMany(Perlengkapan::class, 'peminjam_id', 'id');
     }
 
     public function rent()
     {
-        $this->belongsTo(Rent::class);
+        $this->hasOne(Rent::class, 'peminjam_id', 'id');
     }
 }

@@ -66,11 +66,11 @@
                                             </td>
                                             <td class="text-center d-flex gap-2">
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
-                                                    <a href="/edit/<?php echo e($peminjam->id_peminjam); ?>"
+                                                    <a href="/edit/<?php echo e($peminjam->id); ?>"
                                                         class="btn btn-sm btn-primary">EDIT</a>
-                                                    <a type="button" href="/cetak/<?php echo e($peminjam->id_peminjam); ?>"
-                                                        class=" btnPrint btn btn-sm btn-warning">PRINT</a>
-                                                    <a href="/hapus/<?php echo e($peminjam->id_peminjam); ?>"
+                                                    <a type="button" href="/cetak/<?php echo e($peminjam->id); ?>"
+                                                        class="btnPrint btn btn-sm btn-warning">PRINT</a>
+                                                    <a href="/hapus/<?php echo e($peminjam->id); ?>"
                                                         class="btn btn-sm btn-danger">HAPUS</a>
                                                 <?php endif; ?>
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('kepala')): ?>
@@ -114,7 +114,7 @@
             <a href="/" class="btn btn-warning mb-3">Back to Home</a>
         </main>
     </body>
-    <?php $__env->startPush('script'); ?>
+    <?php $__env->startSection('script'); ?>
         <script>
             $(document).ready(function() {
                 $(".btnPrint").printPage();
@@ -177,7 +177,7 @@
             //     }
             // });
         </script>
-    <?php $__env->stopPush(); ?>
+    <?php $__env->stopSection(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('user.layouts.utama', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\AlifCom\Music\BAKORWIL\peminjaman-bakorwil\resources\views/user/data.blade.php ENDPATH**/ ?>

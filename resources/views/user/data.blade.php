@@ -68,11 +68,11 @@
                                             </td>
                                             <td class="text-center d-flex gap-2">
                                                 @can('admin')
-                                                    <a href="/edit/{{ $peminjam->id_peminjam }}"
+                                                    <a href="/edit/{{ $peminjam->id }}"
                                                         class="btn btn-sm btn-primary">EDIT</a>
-                                                    <a type="button" href="/cetak/{{ $peminjam->id_peminjam }}"
-                                                        class=" btnPrint btn btn-sm btn-warning">PRINT</a>
-                                                    <a href="/hapus/{{ $peminjam->id_peminjam }}"
+                                                    <a type="button" href="/cetak/{{ $peminjam->id }}"
+                                                        class="btnPrint btn btn-sm btn-warning">PRINT</a>
+                                                    <a href="/hapus/{{ $peminjam->id }}"
                                                         class="btn btn-sm btn-danger">HAPUS</a>
                                                 @endcan
                                                 @can('kepala')
@@ -115,7 +115,7 @@
             <a href="/" class="btn btn-warning mb-3">Back to Home</a>
         </main>
     </body>
-    @push('script')
+    @section('script')
         <script>
             $(document).ready(function() {
                 $(".btnPrint").printPage();
@@ -178,5 +178,5 @@
             //     }
             // });
         </script>
-    @endpush
+    @endsection
 @endsection

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Gedung;
 use App\Models\Peminjam;
 use App\Models\Peralatan;
+use App\Models\Rent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -31,8 +33,29 @@ class PeminjamController extends Controller
     public function cetak($id)
     {
         $peminjam = Peminjam::find($id);
+        $rent = Rent::find($id);
+        $gedung = $rent->gedung;
+        $peralatan = $peminjam->peralatan;
+        $perlengkapan = $peminjam->perlengkapan;
 
-        return view('user.admin.cetak', compact('peminjam'));
+        $hargaGedung = $gedung->harga * $peminjam->jam_operasional;
+
+        $hargaAlat = $peralatan[0]->harga * $peralatan[0]->jumlah;
+        $hargaAlat2 = $peralatan[1]->harga * $peralatan[1]->jumlah;
+        // $hargaAlat3 = $peralatan[2]->harga * $peralatan[2]->jumlah;
+
+        $hargaPerlengkapan1 = $perlengkapan[0]->harga * $perlengkapan[0]->jumlah;
+        $hargaPerlengkapan2 = $perlengkapan[1]->harga * $perlengkapan[1]->jumlah;
+        $hargaPerlengkapan3 = $perlengkapan[2]->harga * $perlengkapan[2]->jumlah;
+        $total = $hargaGedung + $hargaAlat + $hargaAlat2 + $hargaPerlengkapan1 + $hargaPerlengkapan2 + $hargaPerlengkapan3;
+
+        return view('user.admin.cetak', [
+            'peminjam' => $peminjam,
+            'gedung' => $gedung,
+            'peralatan' => $peralatan,
+            'perlengkapan' => $perlengkapan,
+            'total' => $total
+        ]);
     }
 
     /**
@@ -71,12 +94,10 @@ class PeminjamController extends Controller
             'tgl_akhir' => 'required',
             'jam_operasional' => 'required'
         ]);
-
         // store image
         $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('/peminjam');
         // $image = $request->file('foto_ktp');
         // $image->store('/peminjam');
-
 
         Peminjam::create([
             'nama_peminjam' => $request->nama_peminjam,
@@ -90,6 +111,11 @@ class PeminjamController extends Controller
             'tgl_akhir' => $request->tgl_akhir,
             'waktu' => $request->waktu,
             'jam_operasional' => $request->jam_operasional,
+        ]);
+        $peminjam = DB::table('peminjams')->orderBy('created_at', 'desc')->first();
+        Rent::create([
+            'gedung_id' => $request->gedung_id,
+            'peminjam_id' => $peminjam->id
         ]);
         return redirect()->route('peralatan')->with('success', 'Data Peminjam Berhasil disimpan!');
     }
@@ -140,6 +166,7 @@ class PeminjamController extends Controller
             'tgl_awal' => 'required',
             'tgl_akhir' => 'required',
             'waktu' => 'required',
+            'jam_operasional' => 'required'
         ]);
 
         $peminjam = Peminjam::findOrFail($id);

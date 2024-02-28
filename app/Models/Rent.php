@@ -9,8 +9,13 @@ class Rent extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'gedung_id',
+        'peminjam_id'
+    ];
+
     public function peminjam(){
-        return $this->belongsTo(Peminjam::class, 'id_peminjam');
+        return $this->belongsTo(Peminjam::class);
     }
 
     public function gedung(){

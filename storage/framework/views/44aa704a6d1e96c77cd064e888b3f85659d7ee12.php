@@ -3,7 +3,7 @@
         <h1>Formulir Data Peminjam</h1>
     </div>
     <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
+        <div class="container alert alert-danger">
             <ul>
                 <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li><?php echo e($error); ?></li>
@@ -14,7 +14,11 @@
     <div class="container bg-white py-2 rounded shadow mb-3">
         <form action="<?php echo e(route('form_peminjam')); ?>" method="POST" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
-            
+            <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
+                <label for="gedung_id" class="form-label">Gedung<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" value="<?php echo e($gedung->nama); ?>" disabled>
+                <input type="number" class="form-control" name="gedung_id" value="<?php echo e($gedung->id); ?>" hidden>
+            </div>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="nama_peminjam" class="form-label">Nama Peminjam<small class="text-danger">*</small></label>
                 <input type="text" class="form-control" placeholder="John Doe" name="nama_peminjam" required>
@@ -70,21 +74,22 @@ unset($__errorArgs, $__bag); ?>
             <div class="container-fluid border bg-body-tertiary mt-3 rounded d-flex flex-column justify-content-center">
                 <label for="date" class="form-label">Tanggal Acara<small class="text-danger">*</small></label>
                 <input type="date" name="tgl_awal" class="from-control text-secondary border p-1 rounded" id="date" required>
-                <small class="text-danger"><i>Tentukan tanggal acara anda</i></small>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan tanggal acara anda</i></small>
             </div>
             <div class="container-fluid border bg-body-tertiary mt-3 rounded d-flex flex-column justify-content-center">
                 <label for="date" class="form-label">Tanggal Berakhir<small class="text-danger">*</small></label>
                 <input type="date" name="tgl_akhir" class="from-control text-secondary border p-1 rounded" id="date" required>
-                <small class="text-danger"><i>Tentukan tanggal berakhir acara anda</i></small>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan tanggal berakhir acara anda</i></small>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
                 <label for="waktu" class="form-label">Waktu Acara<small class="text-danger">*</small></label>
                 <input type="time" name="waktu" class="from-control text-secondary border p-1 rounded mb-2" id="waktu" required>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan waktu acara anda</i></small>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
                 <label for="jam_operasional" class="form-label">Jam Operasional<small class="text-danger">*</small></label>
                 <input type="number" name="jam_operasional" class="from-control text-secondary border p-1 rounded" id="time" required>
-                <small class="text-danger"><i>Tentukan berapa jam operasional yang anda inginkan!</i></small>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan berapa jam operasional yang anda inginkan!</i></small>
             </div>
             
             <div class="container d-flex justify-content-end gap-3 m-3">

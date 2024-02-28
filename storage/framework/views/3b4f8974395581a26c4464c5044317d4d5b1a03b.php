@@ -12,7 +12,7 @@
         </div>
     <?php endif; ?>
     <div class="container bg-white py-2 rounded shadow mb-3">
-        <form action="/edit/<?php echo e($peminjam->id_peminjam); ?>" method="POST" enctype="multipart/form-data">
+        <form action="/edit/<?php echo e($peminjam->id); ?>" method="POST" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">

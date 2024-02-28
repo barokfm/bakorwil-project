@@ -9,8 +9,15 @@ class Peralatan extends Model
 {
     use HasFactory;
 
-    public function gedung(){
-        $this->belongsTo(Gedung::class);
+    protected $fillable = [
+        'peminjam_id',
+        'nama',
+        'harga',
+        'jumlah'
+    ];
+
+    public function peminjam(){
+        return $this->belongsTo(Peminjam::class);
     }
 
 }

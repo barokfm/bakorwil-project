@@ -15,7 +15,7 @@ class CreatePerlengkapansTable extends Migration
     {
         Schema::create('perlengkapans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('peminjam_id')->references('id_peminjam')->on('peminjams');
+            $table->foreignId('peminjam_id')->references('id')->on('peminjams');
             $table->string('nama');
             $table->smallInteger('jumlah');
             $table->Integer('harga');
