@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GedungController;
 use App\Http\Controllers\PeralatanController;
-use App\Http\Controllers\KepalaController;
 use App\Http\Controllers\ProfilController;
-use App\Models\Peminjam;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +24,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 //     return view('home');
 // });
 
-Route::get('/', function(){
-    return view('home', [
-        'title' => 'Home'
-    ]);
-});
+Route::get('/', [GedungController::class, 'index'] )->name('home');
 
-Route::get('/formulir', [PeminjamController::class, 'index']);
+Route::get('/formulir/{id}', [PeminjamController::class, 'index']);
 Route::get('/peralatan', [PeralatanController::class, 'index']);
 
 // Route::get('/form_peralatan', function(){
@@ -62,8 +57,9 @@ Route::get('/logout', function(){
 })->middleware('guest');
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->middleware('auth');
 
-Route::resource('form_peminjaman', PeminjamController::class);
-Route::post('form_peminjaman', [PeminjamController::class, 'store'])->name('form_peminjaman');
+// Route::resource('form_peminjaman', PeminjamController::class);
+Route::post('/peralatan', [PeralatanController::class, 'store'])->name('form_peralatan');
+Route::post('/peminjam', [PeminjamController::class, 'store'])->name('form_peminjam');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/profil', [ProfilController::class, 'index'])->middleware('auth');
@@ -75,14 +71,6 @@ Route::post('/edit/{id}', [PeminjamController::class, 'update']);
 Route::get('/hapus/{id}', [PeminjamController::class, 'destroy']);
 
 Route::get('/data', [DataController::class, 'index'])->name('data')->middleware('auth');
-// Route::get('/show/{id}', [DataController::class, 'show'])->middleware('auth');
-
-
-// Route::get('/',[Sesicintroller::class, 'index']);
-// Route::get('/',[Sesicintroller::class, 'index']);
-
-// Route::get('/',[AdminController::class, 'index']);
-// Route::get('/',[Sesicintroller::class, 'logout']);
 
 Route::get('/cetak/{id}', [PeminjamController::class, 'cetak'])->middleware('auth');
 Route::post('/kepala/{id}', [PeminjamController::class, 'izinkan']);
@@ -90,3 +78,5 @@ Route::post('/sekertaris/{id}', [PeminjamController::class, 'izinkan']);
 Route::post('/kepalaTolak/{id}', [PeminjamController::class, 'tolak']);
 
 Route::get('/peralatan', [PeralatanController::class, 'index'])->name('peralatan');
+
+Route::get('/transaksi', [TransaksiController::class, 'index']);

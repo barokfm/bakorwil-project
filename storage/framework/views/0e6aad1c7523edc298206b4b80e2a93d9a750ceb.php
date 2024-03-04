@@ -13,7 +13,7 @@
             <div class="container mt-5">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="#" class="btn btn-md btn-success mb-3">TAMBAH POST</a>
+                        
                         <div class="table-responsive">
                             <table class="stripe row-border order-column nowrap" style="width:100%" id="data_table">
                                 <thead>
@@ -26,8 +26,9 @@
                                         <th>No. Ktp</th>
                                         <th>Foto Ktp</th>
                                         <th>Agenda</th>
-                                        <th>Tgl. Acara</th>
-                                        <th>Waktu</th>
+                                        <th>Tgl. Awal</th>
+                                        <th>Tgl. Akhir</th>
+                                        <th>Jam Operasional</th>
                                         <th>Status Sekertaris</th>
                                         <th>Status Kepala</th>
                                         <th>AKSI</th>
@@ -44,8 +45,9 @@
                                             <td><?php echo e($peminjam->no_ktp); ?></td>
                                             <td><img src="storage/<?php echo e($peminjam->foto_ktp); ?>" alt="foto_ktp" width="80px">
                                             <td><?php echo e($peminjam->agenda); ?></td>
-                                            <td><?php echo e($peminjam->tgl_acara); ?></td>
-                                            <td><?php echo e($peminjam->waktu); ?></td>
+                                            <td><?php echo e($peminjam->tgl_awal); ?></td>
+                                            <td><?php echo e($peminjam->tgl_akhir); ?></td>
+                                            <td><?php echo e($peminjam->jam_operasional); ?></td>
                                             <td class="">
                                                 <?php if($peminjam->status_sekertaris === 1): ?>
                                                     <img src="/svg/check.svg" alt="validated">
@@ -54,7 +56,7 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td class="">
-                                                <?php if($peminjam->status_kepala === 1 ): ?>
+                                                <?php if($peminjam->status_kepala === 1): ?>
                                                     <img src="/svg/check.svg" alt="validated">
                                                 <?php else: ?>
                                                     <img src="/svg/cancel.svg" alt="invalidated">
@@ -62,29 +64,34 @@
                                             </td>
                                             <td class="text-center d-flex gap-2">
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
-                                                    <a href="/edit/<?php echo e($peminjam->id_peminjam); ?>" class="btn btn-sm btn-primary">EDIT</a>
-                                                    <a type="button" href="/cetak/<?php echo e($peminjam->id_peminjam); ?>"
-                                                        class=" btnPrint btn btn-sm btn-warning">PRINT</a>
-                                                    <a href="/hapus/<?php echo e($peminjam->id_peminjam); ?>" class="btn btn-sm btn-danger">HAPUS</a>
+                                                    <a href="/edit/<?php echo e($peminjam->id); ?>"
+                                                        class="btn btn-sm btn-primary">EDIT</a>
+                                                    <a type="button" href="/cetak/<?php echo e($peminjam->id); ?>"
+                                                        class="btnPrint btn btn-sm btn-warning">PRINT</a>
+                                                    <a href="/hapus/<?php echo e($peminjam->id); ?>"
+                                                        class="btn btn-sm btn-danger">HAPUS</a>
                                                 <?php endif; ?>
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('kepala')): ?>
-                                                    <form action="/kepala/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
+                                                    <form action="/kepala/<?php echo e($peminjam->id); ?>" method="POST">
                                                         <?php echo csrf_field(); ?>
-                                                        <input type="radio" name="status_kepala" class="d-none" value='true' checked>
+                                                        <input type="radio" name="status_kepala" class="d-none" value='true'
+                                                            checked>
                                                         <button type="submit" class="btn btn-success">Approved</button>
                                                     </form>
-                                                    <form action="/kepalaTolak/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
+                                                    <form action="/kepalaTolak/<?php echo e($peminjam->id); ?>" method="POST">
                                                         <?php echo csrf_field(); ?>
-                                                        <input type="radio" name="status_kepala" class="d-none" value='true' checked>
+                                                        <input type="radio" name="status_kepala" class="d-none" value='true'
+                                                            checked>
                                                         <button type="submit" class="btn btn-danger">Disapproved</button>
                                                     </form>
                                                 <?php endif; ?>
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('sekertaris')): ?>
-                                                <form action="/sekertaris/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
-                                                    <?php echo csrf_field(); ?>
-                                                    <input type="radio" name="status_sekertaris" class="d-none" value='true' checked>
-                                                    <button type="submit" class="btn btn-success">Approved</button>
-                                                </form>
+                                                    <form action="/sekertaris/<?php echo e($peminjam->id); ?>" method="POST">
+                                                        <?php echo csrf_field(); ?>
+                                                        <input type="radio" name="status_sekertaris" class="d-none"
+                                                            value='true' checked>
+                                                        <button type="submit" class="btn btn-success">Approved</button>
+                                                    </form>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -105,7 +112,7 @@
             <a href="/" class="btn btn-warning mb-3">Back to Home</a>
         </main>
     </body>
-    <?php $__env->startPush('script'); ?>
+    <?php $__env->startSection('script'); ?>
         <script>
             $(document).ready(function() {
                 $(".btnPrint").printPage();
@@ -136,20 +143,19 @@
                 },
             });
 
-            table.rows().every( function() {
-                this.child( 'Ini informasi tambahan tiap row' );
+            table.rows().every(function() {
+                this.child('Ini informasi tambahan tiap row');
             });
 
-            $('#data_table').on( 'click', 'tr', function() {
-                var child = table.row( this ).child;
+            $('#data_table').on('click', 'tr', function() {
+                var child = table.row(this).child;
 
-                if ( child.isShown() ){
+                if (child.isShown()) {
                     child.hide();
-                }
-                else {
+                } else {
                     child.show();
                 }
-            } );
+            });
 
             // table.on('requestChild.dt', function(e, row) {
             //     row.child(format(row.data())).show();
@@ -169,7 +175,7 @@
             //     }
             // });
         </script>
-    <?php $__env->stopPush(); ?>
+    <?php $__env->stopSection(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('user.layouts.utama', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\AlifCom\Music\BAKORWIL\peminjaman-bakorwil\resources\views/user/data.blade.php ENDPATH**/ ?>

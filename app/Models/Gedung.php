@@ -9,7 +9,11 @@ class Gedung extends Model
 {
     use HasFactory;
 
-    public function peralatan(){
-        return $this->hasMany(Peralatan::class, 'id_peralatan');
+    protected $guarded = [
+        'id'
+    ];
+
+    public function rent(){
+        return $this->belongsTo(Rent::class);
     }
 }

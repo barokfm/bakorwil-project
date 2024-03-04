@@ -16,23 +16,29 @@ class PeralatanSeeder extends Seeder
     {
         $alats = [
             [
-                'gedung_id' => 1,
-                'nama' => 'Sound System',
-                'harga' => 500000,
-                'jumlah' => 1
-            ],
-            [
-                'gedung_id' => 1,
-                'nama' => 'Kursi',
+                'peminjam_id' => 1,
+                'nama' => 'Kursi Varnekel',
                 'harga' => 1500,
-                'jumlah' => 150
+                'jumlah' => 90
             ],
             [
-                'gedung_id' => 1,
+                'peminjam_id' => 1,
                 'nama' => 'AC',
                 'harga' => 350000,
                 'jumlah' => 8
-            ]
+            ],
+            [
+                'peminjam_id' => 2,
+                'nama' => 'Kursi Varnekel',
+                'harga' => 1500,
+                'jumlah' => 100
+            ],
+            [
+                'peminjam_id' => 2,
+                'nama' => 'AC',
+                'harga' => 350000,
+                'jumlah' => 5
+            ],
         ];
 
         foreach($alats as $alat){

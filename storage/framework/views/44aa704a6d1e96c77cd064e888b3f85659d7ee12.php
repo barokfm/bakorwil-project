@@ -3,8 +3,8 @@
         <h1>Formulir Data Peminjam</h1>
     </div>
     <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
-            <ul>
+        <div class="container alert alert-danger">
+            <ul class="list-unstyled">
                 <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li><?php echo e($error); ?></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -12,30 +12,35 @@
         </div>
     <?php endif; ?>
     <div class="container bg-white py-2 rounded shadow mb-3">
-        <form action="<?php echo e(route('form_peminjaman')); ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo e(route('form_peminjam')); ?>" method="POST" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
+                <label for="gedung_id" class="form-label">Gedung<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" value="<?php echo e($gedung->nama); ?>" disabled>
+                <input type="number" class="form-control" name="gedung_id" value="<?php echo e($gedung->id); ?>" hidden>
+            </div>
+            <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="nama_peminjam" class="form-label">Nama Peminjam<small class="text-danger">*</small></label>
-                <input type="text" class="form-control" placeholder="John Doe" name="nama_peminjam" required>
+                <input type="text" class="form-control" placeholder="John Doe" name="nama_peminjam" id="nama_peminjam" required>
             </div>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="alamat" class="form-label">Alamat<small class="text-danger">*</small></label>
-                <input type="text" class="form-control" name="alamat" required>
+                <input type="text" class="form-control" name="alamat" id="alamat" required>
             </div>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="email" class="form-label">Email<small class="text-danger">*</small></label>
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" name="email" id="email" required autocomplete="on">
             </div>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
-                <label for="no-telp" class="form-label">Nomor HP<small class="text-danger">*</small></label>
-                <input type="text" class="form-control" name="no_hp" required>
+                <label for="no_hp" class="form-label">Nomor HP<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" name="no_hp" id="no_hp" required>
             </div>
             <div class="mb-3 border bg-body-tertiary rounded p-3 mt-3">
                 <label for="no_ktp" class="form-label">No. KTP<small class="text-danger">*</small></label>
-                <input type="text" class="form-control" name="no_ktp" required>
+                <input type="text" class="form-control" name="no_ktp" id="no_ktp" required>
             </div>
             <div class="container-fluid border bg-body-tertiary rounded d-flex flex-column justify-content-center">
-                <label for="photo" class="form-label">Foto KTP<small class="text-danger">*</small></label>
+                <label for="foto_ktp" class="form-label">Foto KTP<small class="text-danger">*</small></label>
                 <img class="img-preview img-fluid mb-3 col-sm-3">
                 <div class="my-2">
                     <input class="form-control <?php $__errorArgs = ['foto_ktp'];
@@ -45,7 +50,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" id="image" type="file"
+unset($__errorArgs, $__bag); ?>" id="foto_ktp" type="file"
                         name="foto_ktp" required onchange="previewImage()">
                     <?php $__errorArgs = ['foto_ktp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -63,27 +68,55 @@ unset($__errorArgs, $__bag); ?>
                 </div>
             </div>
             <div class="mt-3 border bg-body-tertiary rounded p-3">
-                <label for="name" class="form-label">Agenda<small class="text-danger">*</small></label>
-                <input type="text" class="form-control" name="agenda">
+                <label for="agenda" class="form-label">Agenda<small class="text-danger">*</small></label>
+                <input type="text" class="form-control" name="agenda" id="agenda">
             </div>
             <div class="container-fluid border bg-body-tertiary mt-3 rounded d-flex flex-column justify-content-center">
-                <label for="date" class="form-label">Tanggal Acara<small class="text-danger">*</small></label>
-                <input type="date" name="tgl_awal" class="from-control text-secondary border p-1 rounded" id="date" required>
-                <small class="text-danger"><i>Tentukan tanggal acara anda</i></small>
+                <label for="tgl_awal" class="form-label">Tanggal Acara<small class="text-danger">*</small></label>
+                <input type="date" name="tgl_awal" class="from-control text-secondary border p-1 rounded" id="tgl_awal"
+                    required>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan tanggal acara anda</i></small>
             </div>
             <div class="container-fluid border bg-body-tertiary mt-3 rounded d-flex flex-column justify-content-center">
-                <label for="date" class="form-label">Tanggal Berakhir<small class="text-danger">*</small></label>
-                <input type="date" name="tgl_akhir" class="from-control text-secondary border p-1 rounded" id="date" required>
-                <small class="text-danger"><i>Tentukan tanggal berakhir acara anda</i></small>
+                <label for="tgl_akhir" class="form-label">Tanggal Berakhir<small class="text-danger">*</small></label>
+                <input type="date" name="tgl_akhir" class="from-control text-secondary border p-1 rounded" id="tgl_akhir"
+                    required>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan tanggal berakhir acara
+                        anda</i></small>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
-                <label for="time" class="form-label">Waktu Acara<small class="text-danger">*</small></label>
-                <input type="time" name="waktu" class="from-control text-secondary border p-1 rounded mb-2" id="time" required>
+                <label for="waktu" class="form-label">Waktu Acara<small class="text-danger">*</small></label>
+                <input type="time" name="waktu" class="from-control text-secondary border p-1 rounded mb-2"
+                    id="waktu" required>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan waktu acara anda</i></small>
             </div>
             <div class="container-fluid mt-3 border bg-body-tertiary rounded d-flex flex-column justify-content-center">
-                <label for="time" class="form-label">Waktu Operasional<small class="text-danger">*</small></label>
-                <input type="time" name="jam_operasional" class="from-control text-secondary border p-1 rounded" id="time" required>
-                <small class="text-danger"><i>Tentukan berapa jam operasional yang anda inginkan!</i></small>
+                <label for="jam_operasional" class="form-label">Jam Operasional<small
+                        class="text-danger">*</small></label>
+                <input type="number" name="jam_operasional" onsubmit="validasi()"
+                    class="from-control text-secondary border p-1 rounded <?php $__errorArgs = ['jam_operasional'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                    id="jam_operasional" required>
+                <small class="text-muted"><i><small class="text-danger">*</small>Tentukan berapa jam operasional yang anda
+                        inginkan!</i></small>
+                <?php $__errorArgs = ['jam_operasional'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="invalid-feedback">
+                        <small class="text-danger">Minimal Jam Operasinal adalah 5 jam</small>
+                    </div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
             
             <div class="container d-flex justify-content-end gap-3 m-3">
@@ -96,8 +129,10 @@ unset($__errorArgs, $__bag); ?>
     <script>
         function previewImage() {
             const image = document.querySelector('#image');
+            // const old_img = document.querySelector('#old_image');
             const imgPreview = document.querySelector('.img-preview');
 
+            // old_img.style.display = 'none';
             imgPreview.style.display = 'block';
 
             const oFReader = new FileReader();
@@ -107,6 +142,16 @@ unset($__errorArgs, $__bag); ?>
                 imgPreview.src = oFREvent.target.result;
             }
         }
+
+        // function validasi(){
+        //     let jam = document.getElementById('jam_operasional').value;
+        //     const feedback = document.querySelector('.invalid-feedback');
+        //     console.log(jam);
+        //     if(jam <= 5){
+        //         console.log('inputan harus diatas 5');
+        //         feedback.style.display = 'inline';
+        //     }
+        // }
     </script>
 <?php $__env->stopSection(); ?>
 

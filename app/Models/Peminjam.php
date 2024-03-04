@@ -9,9 +9,10 @@ class Peminjam extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_peminjam';
+    // protected $primaryKey = 'id_peminjam';
 
     protected $fillable = [
+        'gedung_id',
         'nama_peminjam',
         'alamat',
         'email',
@@ -22,17 +23,25 @@ class Peminjam extends Model
         'tgl_awal',
         'tgl_akhir',
         'waktu',
-        'waktu_operasional',
-        'status_sekertaris',
-        'status_kepala'
+        'jam_operasional',
+        'status_kepala',
+        'status_sekertaris'
     ];
 
-    protected $ignored = [
-        'id',
-        'foto_ktp',
+    protected $guarded = [
+        'id'
     ];
 
-    public function peminjaman(){
-        $this->hasMany(Peminjaman::class, 'id_peminjam');
+    public function peralatan(){
+        return $this->hasMany(Peralatan::class, 'peminjam_id', 'id');
+    }
+
+    public function perlengkapan(){
+        return $this->hasMany(Perlengkapan::class, 'peminjam_id', 'id');
+    }
+
+    public function rent()
+    {
+        $this->hasOne(Rent::class, 'peminjam_id', 'id');
     }
 }

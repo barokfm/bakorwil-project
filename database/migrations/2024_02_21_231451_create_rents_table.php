@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGedungsTable extends Migration
+class CreateRentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateGedungsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gedungs', function (Blueprint $table) {
+        Schema::create('rents', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('peminjam_id');
-            $table->string('nama');
-            $table->integer('harga');
+            $table->foreignId('gedung_id')->references('id')->on('gedungs');
+            $table->foreignId('peminjam_id')->references('id')->on('peminjams');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateGedungsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gedungs');
+        Schema::dropIfExists('rents');
     }
 }

@@ -21,13 +21,6 @@
                         <small>Total Pengaju</small>
                     </div>
                 </div>
-                <div class="col p-3 d-flex shadow rounded bg-success-subtle">
-                    <div><img src="storage/avatar/Ln42gl4TUr3TRuKznFSJNPGZNCxMQhh8H3F8S8BV.png" width="80"></div>
-                    <div class="d-flex flex-column justify-content-center px-4">
-                        <span class="h2 mb-0"><?php echo e($jumlahAlat); ?></span>
-                        <small>Total Peralatan</small>
-                    </div>
-                </div>
             </div>
         </div>
 

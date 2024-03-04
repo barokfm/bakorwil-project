@@ -15,10 +15,10 @@ class CreatePeralatansTable extends Migration
     {
         Schema::create('peralatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gedung_id');
+            $table->foreignId('peminjam_id')->references('id')->on('peminjams');
             $table->string('nama');
-            $table->integer('harga');
             $table->integer('jumlah');
+            $table->integer('harga');
             $table->timestamps();
         });
     }
