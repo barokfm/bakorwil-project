@@ -48,8 +48,8 @@ class PeralatanController extends Controller
         // dd($peminjam->id);
 
         $validated_data = $this->validate($request, [
-            'jumlah_kursi' => 'required',
-            'jumlah_ac' => 'required',
+            'jumlah_kursi' => 'numeric|max:150 required',
+            'jumlah_ac' => 'numeric|max:8 required',
             'sound_system' => 'required',
             'space_promotion' => 'required',
             'area_kantor' => 'required'
@@ -63,12 +63,16 @@ class PeralatanController extends Controller
             $sound_system = 1;
         }
 
-        if($request->space_promotion === 'ya'){
-            $space_promotion = 1;
+        if($request->space_promotion != 'ya'){
+            $space_promotion = 0;
+        }else {
+            $space_promotion = $request->input_space;
         }
 
-        if($request->area_kantor === 'ya'){
-            $area_kantor = 1;
+        if($request->area_kantor != 'ya'){
+            $area_kantor = 0;
+        }else {
+            $area_kantor = $request->input_area;
         }
 
         $peralatans = [
@@ -114,6 +118,7 @@ class PeralatanController extends Controller
         foreach($perlengkapans as $perlengkapan){
             Perlengkapan::create($perlengkapan);
         };
+
         return redirect()->route('home')->with('success', 'Data Peminjam Berhasil disimpan!');
     }
 

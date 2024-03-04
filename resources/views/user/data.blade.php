@@ -15,9 +15,9 @@
             <div class="container mt-5">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        @can('admin')
+                        {{-- @can('admin')
                             <a href="#" class="btn btn-md btn-success mb-3">TAMBAH Peminjam</a>
-                        @endcan
+                        @endcan --}}
                         <div class="table-responsive">
                             <table class="stripe row-border order-column nowrap" style="width:100%" id="data_table">
                                 <thead>
@@ -76,13 +76,13 @@
                                                         class="btn btn-sm btn-danger">HAPUS</a>
                                                 @endcan
                                                 @can('kepala')
-                                                    <form action="/kepala/{{ $peminjam->id_peminjam }}" method="POST">
+                                                    <form action="/kepala/{{ $peminjam->id }}" method="POST">
                                                         @csrf
                                                         <input type="radio" name="status_kepala" class="d-none" value='true'
                                                             checked>
                                                         <button type="submit" class="btn btn-success">Approved</button>
                                                     </form>
-                                                    <form action="/kepalaTolak/{{ $peminjam->id_peminjam }}" method="POST">
+                                                    <form action="/kepalaTolak/{{ $peminjam->id }}" method="POST">
                                                         @csrf
                                                         <input type="radio" name="status_kepala" class="d-none" value='true'
                                                             checked>
@@ -90,7 +90,7 @@
                                                     </form>
                                                 @endcan
                                                 @can('sekertaris')
-                                                    <form action="/sekertaris/{{ $peminjam->id_peminjam }}" method="POST">
+                                                    <form action="/sekertaris/{{ $peminjam->id }}" method="POST">
                                                         @csrf
                                                         <input type="radio" name="status_sekertaris" class="d-none"
                                                             value='true' checked>
