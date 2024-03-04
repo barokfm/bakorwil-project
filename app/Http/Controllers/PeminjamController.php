@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Gedung;
 use App\Models\Peminjam;
 use App\Models\Peralatan;
+use App\Models\Perlengkapan;
 use App\Models\Rent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -85,14 +85,14 @@ class PeminjamController extends Controller
         $validatedData = $this->validate($request, [
             'nama_peminjam' => 'required',
             'alamat' => 'required',
-            'email' => 'required',
-            'no_hp' => 'required',
+            'email' => 'required|email|unique:users',
+            'no_hp' => 'required|digits:12',
             'no_ktp' => 'required',
             'foto_ktp' => 'image|file|max:1024',
             'agenda' => 'required',
             'tgl_awal' => 'required',
             'tgl_akhir' => 'required',
-            'jam_operasional' => 'required'
+            'jam_operasional' => 'numeric|min:5'
         ]);
         // store image
         $validatedData['foto_ktp'] = $request->file('foto_ktp')->store('/peminjam');
@@ -117,7 +117,8 @@ class PeminjamController extends Controller
             'gedung_id' => $request->gedung_id,
             'peminjam_id' => $peminjam->id
         ]);
-        return redirect()->route('peralatan')->with('success', 'Data Peminjam Berhasil disimpan!');
+        smilify('success', 'Data berhasil disimpan!');
+        return redirect()->route('peralatan');
     }
 
     /**
@@ -188,8 +189,8 @@ class PeminjamController extends Controller
             $peminjam->update($validatedData);
         }
 
-        return redirect()->route('data')->with(['success' => 'Data berhasil Diubah!']);
-
+        notify()->success('success', 'Data berhasil diedit!');
+        return redirect()->route('data');
     }
 
     public function izinkan($id)
@@ -212,9 +213,8 @@ class PeminjamController extends Controller
             $peminjam->save();
         }
 
-        smilify('success', 'Disetujui!');
+        smilify('success', 'Peminjam berhasil disetujui!');
         return redirect()->route('data');
-        // return redirect()->route('data')->with(['success' => 'Peminjam Berhasil diapproved!']);
 
     }
 
@@ -227,8 +227,8 @@ class PeminjamController extends Controller
         ]);
 
         $peminjam->save();
-
-        return redirect()->route('data')->with(['success' => 'Peminjam Berhasil didisapproved!']);
+        notify()->warning('success', 'Peminjam berhasil ditolak!!');
+        return redirect()->route('data');
     }
 
     /**
@@ -240,7 +240,10 @@ class PeminjamController extends Controller
     public function destroy(string $id)
     {
         $peminjam = Peminjam::findOrFail($id);
-        // dd($peminjam);
+        $peralatan = DB::delete('delete from peralatans where peminjam_id = '. $id);
+        $rent = DB::delete('delete from rents where peminjam_id = '.$id);
+        $perlengkapan = DB::delete('delete from perlengkapans where peminjam_id = '.$id);
+        // dd($peralatan);
 
         Storage::delete($peminjam->foto_ktp);
 

@@ -13,9 +13,7 @@
             <div class="container mt-5">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
-                            <a href="#" class="btn btn-md btn-success mb-3">TAMBAH Peminjam</a>
-                        <?php endif; ?>
+                        
                         <div class="table-responsive">
                             <table class="stripe row-border order-column nowrap" style="width:100%" id="data_table">
                                 <thead>
@@ -74,13 +72,13 @@
                                                         class="btn btn-sm btn-danger">HAPUS</a>
                                                 <?php endif; ?>
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('kepala')): ?>
-                                                    <form action="/kepala/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
+                                                    <form action="/kepala/<?php echo e($peminjam->id); ?>" method="POST">
                                                         <?php echo csrf_field(); ?>
                                                         <input type="radio" name="status_kepala" class="d-none" value='true'
                                                             checked>
                                                         <button type="submit" class="btn btn-success">Approved</button>
                                                     </form>
-                                                    <form action="/kepalaTolak/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
+                                                    <form action="/kepalaTolak/<?php echo e($peminjam->id); ?>" method="POST">
                                                         <?php echo csrf_field(); ?>
                                                         <input type="radio" name="status_kepala" class="d-none" value='true'
                                                             checked>
@@ -88,7 +86,7 @@
                                                     </form>
                                                 <?php endif; ?>
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('sekertaris')): ?>
-                                                    <form action="/sekertaris/<?php echo e($peminjam->id_peminjam); ?>" method="POST">
+                                                    <form action="/sekertaris/<?php echo e($peminjam->id); ?>" method="POST">
                                                         <?php echo csrf_field(); ?>
                                                         <input type="radio" name="status_sekertaris" class="d-none"
                                                             value='true' checked>

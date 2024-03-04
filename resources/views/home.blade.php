@@ -78,7 +78,7 @@
     </div>
     <div class="container py-4">
         <div class="container-fluid d-flex align-items-center bg-light gap-3">
-            <img src="/img/hall.svg" alt="apartment-rent" width="60px">
+            <img src="/svg/hall.svg" alt="apartment-rent" width="60px">
             <h2>Sewa Gedung</h2>
         </div>
         <hr class="border-dark">
